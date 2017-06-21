@@ -20,7 +20,7 @@ To run tests:
 $> python setup.py test
 ```
 
-To produce code coverage report:
+To produce code coverage report (below expects movie_project to be on your system path):
 ```
 $> coverage run -m unittest discover -s "test" -p "*_test.py"
 ...
