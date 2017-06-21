@@ -15,6 +15,7 @@ def test_suite():
 setup(
     name = "Movie Website Project",
     version = "0.1",
+    namespace_packages=["movie_project"],
     packages = find_packages("src"),
     package_dir={"":"src"},
     test_suite = "setup.test_suite"
