@@ -70,8 +70,7 @@ class TmdbApiTest(unittest.TestCase):
     def test_large_number_of_concurrent_api_calls_does_not_exceed_rate_limit(self):
         class SearchOp:
             '''Callable class to perform a search operation on tmdb'''
-            def __init__(self, tester, api, search_term, on_success):
-                self.tester = tester
+            def __init__(self, api, search_term, on_success):
                 self.api = api
                 self.search_term = search_term
                 self.on_success = on_success
@@ -97,7 +96,7 @@ class TmdbApiTest(unittest.TestCase):
         threads = []
         for _ in range(thread_count):
             testing_thread = threading.Thread(
-                              target=SearchOp(self, t,"Unforgiven", on_success))
+                              target=SearchOp(t,"Unforgiven", on_success))
             threads.append(testing_thread)
             testing_thread.start()
 
