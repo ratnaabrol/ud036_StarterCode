@@ -6,6 +6,7 @@ Note: The version requirements below are so strict because this project was buil
 * python (v3.6.1)
 * wheel (v0.29.0): ```pip install 'wheel==0.29.0```
 * coverage (v4.4.1): ```pip install coverage==4.4.1```
+* requests (v2.17.3): ```pip install requests==2.17.3```
 * TBC...
 
 ## Distribution

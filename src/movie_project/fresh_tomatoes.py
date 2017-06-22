@@ -25,6 +25,21 @@ main_page_head = '''
             width: 640px;
             height: 480px;
         }
+        #storyline .modal-dialog {
+            margin-top: 200px;
+            width: 400px;
+            height: 100px;
+        }
+        #tmdb-logo {
+            height: 30px;
+            margin-top: 10px;
+        }
+        .disclaimer {
+            text-align: center;
+            margin: auto;
+            font-style: oblique;
+            font-size: small;
+        }
         .hanging-close {
             position: absolute;
             top: -12px;
@@ -35,13 +50,22 @@ main_page_head = '''
             width: 100%;
             height: 100%;
         }
+        #movie-storyline {
+            width: 100%;
+            height: 100%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
         .movie-tile {
             margin-bottom: 20px;
             padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .movie-tile .tagline {
+            height: 50px;
         }
         .movie-tile:hover {
             background-color: #EEE;
-            cursor: pointer;
         }
         .scale-media {
             padding-bottom: 56.25%;
@@ -65,7 +89,7 @@ main_page_head = '''
             $("#trailer-video-container").empty();
         });
         // Start playing the video whenever the trailer modal is opened
-        $(document).on('click', '.movie-tile', function (event) {
+        $(document).on('click', '.play_trailer', function (event) {
             var trailerYouTubeId = $(this).attr('data-trailer-youtube-id')
             var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
             $("#trailer-video-container").empty().append($("<iframe></iframe>", {
@@ -74,6 +98,19 @@ main_page_head = '''
               'src': sourceUrl,
               'frameborder': 0
             }));
+        });
+        // Show storyline
+        $(document).on('click', '.movie_storyline', function (event) {
+            var storyline = $(this).attr('data-movie-storyline');
+            var $frame = $("<iframe></iframe>", {
+              'id': 'movie-storyline',
+              'type': 'text-html',
+              'frameborder': 0
+            });
+            $frame.load(function() {
+                $("#movie-storyline").contents().find("body").append(storyline);
+            });
+            $("#movie-storyline-container").empty().append($frame);
         });
         // Animate in the movies when the page loads
         $(document).ready(function () {
@@ -102,6 +139,19 @@ main_page_content = '''
       </div>
     </div>
 
+    <!-- Storyline Video Modal -->
+    <div class="modal" id="storyline">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <a href="#" class="hanging-close" data-dismiss="modal" aria-hidden="true">
+            <img src="https://lh5.ggpht.com/v4-628SilF0HtHuHdu5EzxD7WRqOrrTIDi_MhEG6_qkNtUK5Wg7KPkofp_VJoF7RS2LhxwEFCO1ICHZlc-o_=s0#w=24&h=24"/>
+          </a>
+          <div id="movie-storyline-container">
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Main Page Content -->
     <div class="container">
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -109,7 +159,13 @@ main_page_content = '''
           <div class="navbar-header">
             <a class="navbar-brand" href="#">Fresh Tomatoes Movie Trailers</a>
           </div>
+          <a class="navbar-right" href="https://www.themoviedb.org/">
+            <img id="tmdb-logo" alt="Powered by The Movie DB" src="https://www.themoviedb.org/assets/static_cache/9b3f9c24d9fd5f297ae433eb33d93514/images/v4/logos/408x161-powered-by-rectangle-green.png">
+          </a>
         </div>
+      </div>
+      <div class="disclaimer">
+        <p>The information on this site was assembled using the TMDb API but this site is not endorsed or certified by <a href="https://www.themoviedb.org/">TMDb</a>.</p>
       </div>
     </div>
     <div class="container">
@@ -122,9 +178,14 @@ main_page_content = '''
 
 # A single movie entry html template
 movie_tile_content = '''
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
+<div class="col-md-6 col-lg-4 movie-tile text-center">
     <img src="{poster_image_url}" width="220" height="342">
     <h2>{movie_title}</h2>
+    <div class="tagline">{tagline}</div>
+    <div class="controls">
+        <button class="btn btn-success btn-sm play_trailer" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">play trailer</button>
+        <button class="btn btn-info btn-sm movie_storyline" data-movie-storyline="{storyline}" data-toggle="modal" data-target="#storyline">storyline</button>
+    </div>
 </div>
 '''
 
@@ -133,19 +194,13 @@ def create_movie_tiles_content(movies):
     # The HTML content for this section of the page
     content = ''
     for movie in movies:
-        # Extract the youtube ID from the url
-        youtube_id_match = re.search(
-            r'(?<=v=)[^&#]+', movie.trailer_youtube_url)
-        youtube_id_match = youtube_id_match or re.search(
-            r'(?<=be/)[^&#]+', movie.trailer_youtube_url)
-        trailer_youtube_id = (youtube_id_match.group(0) if youtube_id_match
-                              else None)
-
         # Append the tile for the movie with its content filled in
         content += movie_tile_content.format(
             movie_title=movie.title,
             poster_image_url=movie.poster_image_url,
-            trailer_youtube_id=trailer_youtube_id
+            trailer_youtube_id=movie.trailer_youtube_key,
+            tagline=movie.tagline,
+            storyline=movie.storyline
         )
     return content
 
