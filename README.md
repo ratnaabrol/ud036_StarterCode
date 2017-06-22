@@ -1,5 +1,7 @@
 # Udacity Project - Movie Trailer website
 
+Note: the instructions below use commands ```python``` and ```pip```. Please replace these as appropriate depending on your python installation (e.g. ```python3``` or ```pip3```).
+
 ## Prerequisites
 Note: The version requirements below are so strict because this project was built with specific versions of tools and libraries and has only been tested with those versions.
 
@@ -64,3 +66,9 @@ $> coverage run -m unittest discover -s "test" -p "*_test.py"
 ...
 $> coverage html
 ```
+
+## Revision History
+* 1.0.0
+ * first release
+* 1.0.1
+ * fixed issue with html file encoding being ascii instead of utf-8
