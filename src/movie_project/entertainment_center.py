@@ -47,6 +47,6 @@ def create_website(movie_data):
             print("Error: No data for '{}' ({})"
                             .format(movie_def["title"], movie_def["year"]))
 
-    print("... retreval complete.")
+    print("... retrieval complete.")
 
     fresh_tomatoes.open_movies_page(movies)
