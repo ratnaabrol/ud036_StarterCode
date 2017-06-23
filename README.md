@@ -91,7 +91,6 @@ where ```my_favorite_movies.json``` contained the following
 ]
 ```
 
-
 ## Testing
 To run tests, in the project root directory:
 ```
@@ -120,6 +119,12 @@ test\movie_project\movie_data_reader_test.py      36      0   100%
 test\movie_project\tmdbapi_test.py                75      0   100%
 ------------------------------------------------------------------
 TOTAL                                            246      6    98%
+```
+
+## Uninstall
+To uninstall this package:
+```
+$> pip uninstall movie_project
 ```
 
 ## Known Issues
