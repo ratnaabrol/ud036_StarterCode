@@ -128,8 +128,10 @@ $> pip uninstall movie_project
 ```
 
 ## Known Issues
-* When there is no internet connectivity, executing the main entry point will crash
-displaying stack traces to the console.
+* When there is no internet connectivity, executing the main entry point will
+crash displaying stack traces to the console.
+* Installation from wheel created on linux (tested on Fedora release 25) cannot
+be run using "python -m". (ValueError: movie_project.__spec__ is None)
 * "play trailer" and "storyline" buttons are not disabled when a movie
 doesn't have trailer or storyline, respectively.
 * Long movie titles and/or long tag lines will change the layout so that it
