@@ -5,18 +5,18 @@ Note: the instructions below use commands ```python``` and ```pip```. Please rep
 ## Prerequisites
 Note: The version requirements below are so strict because this project was built with specific versions of tools and libraries and has only been tested with those versions.
 
-### Global
+### Global Prerequisites
 * python (v3.6.1)
 
-### Installation
+### Distribution Prerequisites
 * wheel (v0.29.0): ```pip install 'wheel==0.29.0```
 
-### Testing
-* coverage (v4.4.1): ```pip install coverage==4.4.1```
-
-### Execution
-(requirements specified in the wheel)
+### Usage Prerequisites
+(these dependencies will be installed when installing the distribution wheel)
 * requests (v2.17.3): ```pip install requests==2.17.3```
+
+### Testing Prerequisites
+* coverage (v4.4.1): ```pip install coverage==4.4.1```
 
 ## Distribution
 To create distributable wheel, in the project root:
@@ -124,7 +124,7 @@ TOTAL                                            246      6    98%
 
 ## Revision History
 * 1.1.0
- * can read movie data from file provided on command line
+ * now can read movie data from file provided on command line
  * improved README.md
 * 1.0.1
  * fixed issue with html file encoding being ascii instead of utf-8
