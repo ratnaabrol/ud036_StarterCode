@@ -32,8 +32,21 @@ $> pip install <wheel_file>
 ```
 where ```<wheel_file>``` is the distribution wheel (see above).
 
-## Execution
-Once installed a static website containing default data can be generated:
+## Usage
+Once installed, usage can be found by running:
+```
+$> python -m movie_project -h
+Usage: movie_project [options]
+
+Options:
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  -d FILE, --data-file=FILE
+                        reads movie specification from data file. JSON format
+                        array containing object with keys 'title' and 'year'
+```
+
+To generate a static website containing default data:
 ```
 $> python -m movie_project
 ```
@@ -54,21 +67,66 @@ Error: No data for 'dasdaasa' (100)
 ```
 Note that the ```Error:``` line is expected output and demonstrates how the application copes with data that can't be looked up.
 
+To generate a static website containing custom data, provide a json file containing an array of film data:
+
+```
+$> python -m movie_project -d my_favorite_movies.json
+Disclaimer: This product uses the TMDb API but is not endorsed or certified by TMDb.
+Retrieving film data...
+Found: 'unforgiven' (1992) -> Unforgiven (Some legends will never be forgotten. Some wrongs can never be forgiven.)
+Found: 'starship troopers' (1997) -> Starship Troopers (The only good bug is a dead bug.)
+Found: 'maltese falcon' (1941) -> The Maltese Falcon (A story as EXPLOSIVE as his BLAZING automatics!)
+Found: 'pi' (1998) -> Pi (There will be no order, only chaos)
+... retrieval complete.
+```
+
+where ```my_favorite_movies.json``` contained the following
+
+```json
+[
+  {"title":"unforgiven", "year":1992},
+  {"title":"starship troopers", "year":1997},
+  {"title":"maltese falcon", "year":1941},
+  {"title":"pi", "year":1998}
+]
+```
+
+
 ## Testing
-To run tests:
+To run tests, in the project root directory:
 ```
 $> python setup.py test
 ```
 
-To produce code coverage report (below expects movie_project to be on your system path):
+To produce code coverage report, add the movie_project packge to your python library path, and from the project root directory:
 ```
 $> coverage run -m unittest discover -s "test" -p "*_test.py"
-...
-$> coverage html
+.....................
+----------------------------------------------------------------------
+Ran 21 tests in 17.758s
+
+OK
+
+$> coverage report
+Name                                           Stmts   Miss  Cover
+------------------------------------------------------------------
+src\movie_project\__init__.py                      1      0   100%
+src\movie_project\media.py                         7      0   100%
+src\movie_project\movie_data_reader.py             8      0   100%
+src\movie_project\tmdbapi.py                      89      6    93%
+test\movie_project\__init__.py                     1      0   100%
+test\movie_project\media_test.py                  29      0   100%
+test\movie_project\movie_data_reader_test.py      36      0   100%
+test\movie_project\tmdbapi_test.py                75      0   100%
+------------------------------------------------------------------
+TOTAL                                            246      6    98%
 ```
 
 ## Revision History
-* 1.0.0
- * first release
+* 1.1.0
+ * can read movie data from file provided on command line
+ * improved README.md
 * 1.0.1
  * fixed issue with html file encoding being ascii instead of utf-8
+* 1.0.0
+ * first release
