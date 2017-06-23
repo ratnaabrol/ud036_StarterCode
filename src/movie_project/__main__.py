@@ -8,7 +8,7 @@ import sys
 import movie_project.entertainment_center as ec
 import movie_project.movie_data_reader as movie_data_reader
 
-parser = OptionParser(prog="movie_project", version="%prog v1.1.0") # TODO: auto sync with setup.py
+parser = OptionParser(prog="movie_project", version="%prog v1.1.1") # TODO: auto sync with setup.py
 parser.add_option("-d", "--data-file",
                   action="store",
                   type="string",

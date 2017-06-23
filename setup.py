@@ -13,8 +13,8 @@ def test_suite():
     return suite
 
 setup(
-    name = "Movie Website Project",
-    version = "1.0.1",
+    name = "movie_project",
+    version = "1.1.1",
     namespace_packages=["movie_project"],
     packages = find_packages("src"),
     package_dir={"":"src"},

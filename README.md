@@ -122,11 +122,23 @@ test\movie_project\tmdbapi_test.py                75      0   100%
 TOTAL                                            246      6    98%
 ```
 
+## Known Issues
+* When there is no internet connectivity, executing the main entry point will crash
+displaying stack traces to the console.
+* "play trailer" and "storyline" buttons are not disabled when a movie
+doesn't have trailer or storyline, respectively.
+* Long movie titles and/or long tag lines will change the layout so that it
+the generated web site contains excessive whitespace
+
 ## Revision History
+* 1.1.1
+    * installation package name now matches library package name
+    * added Known Issues section to readme
+    * upped version number
 * 1.1.0
- * now can read movie data from file provided on command line
- * improved README.md
+    * now can read movie data from file provided on command line
+    * improved README.md
 * 1.0.1
- * fixed issue with html file encoding being ascii instead of utf-8
+    * fixed issue with html file encoding being ascii instead of utf-8
 * 1.0.0
- * first release
+    * first release
